@@ -1,0 +1,116 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load ratings %}
+{% load base_tags %}
+{% load humanize %}
+
+
+
+{% block title %}Home{% endblock %}
+
+
+
+{% block header%}
+
+<header class="masthead" style="background-image: url('static/blog/assets/img/home.jpg')" >
+    <div class="container position-relative px-4 px-lg-5">
+        <div class="row gx-4 gx-lg-5 justify-content-center">
+            <div class="col-md-10 col-lg-8 col-xl-7">
+                <div class="site-heading">
+                    <h1>Music of Iran</h1>
+                    <span class="subheading">Persian music</span>
+                </div>  
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- message alert  -->
+{% if messages %}
+<p class="alert alert-success">
+    {% for message in messages %}
+      {{ message }}
+    {% endfor %}
+</p>
+{% endif %}
+<!-- end message alert -->
+
+{% endblock %}
+
+{% block content %}
+
+        <!-- Main Content-->
+        <div class="container px-4 px-lg-5">
+            <div class="row gx-4 gx-lg-5 justify-content-center">
+                <div class="col-md-10 col-lg-8 col-xl-7">
+                    <!-- Post preview-->
+                    {% for post in object_list %}
+                    <div class="post-preview">
+                        <a href="{% url 'blog:detail' post.id %}">
+                            <h2 class="podfor st-title">
+                                {{post.title}}
+                                <div>
+                                    {% ratings post %} 
+                                </div>
+                                <div>
+                                    Views: {{post.hits.count}}
+                                </div>
+                                {% if post.is_special %}
+                                    <span class="badge badge-danger" style="color: rgb(255, 255, 255);
+                                    font-size: 14px;">Special</span>
+                                {% endif %}
+                            </h2>
+                      
+                           <img src="{{post.thumbnail.url}}" alt="" width="250" height="auto">
+                            <h3 class="post-subtitle">{{post.descriptions|striptags|truncatewords:30}}</h3>
+                        </a>
+                        <p class="post-meta">
+                            <a href="#">post created :
+                                {{post.author.get_full_name}}</a>
+                        </p>
+                        <time>{{post.publish | naturaltime}}</time>
+                        {% for cat in post.category.active %}
+                        <a href="{% url 'blog:category' cat.id %}">#{{cat.title}}</a>
+                    {% endfor %}
+                    </div>
+                    <!-- Divider-->
+                    <hr class="my-4" />
+                   {% endfor %}
+
+           <!-- Pager-->
+
+                    {% if is_paginated %}
+
+                    <nav aria-label="Page navigation example text-aline-center" >
+                        <ul class="pagination">
+
+                          {% if page_obj.has_previous %}
+                            <li class="page-item"><a class="page-link" href="?page={{page_obj.previous_page_number}}">Previous</a></li>
+                          {% endif%}
+
+                          {% for post in page_obj.paginator.page_range %}
+
+                            {% if post.number == page %}
+                                <li class="page-item "><a class="page-link" href="?page={{post}}">{{post}}</a></li>
+                            {% endif %}
+
+                          {% endfor%}
+
+                          {% if page_obj.has_next %}
+                            <li class="page-item"><a class="page-link" href="?page={{page_obj.next_page_number}}">Next</a></li>
+                          {% endif%}
+
+                        </ul>
+                    </nav>
+
+                    {% endif %}
+                    
+                    <!-- <div class="d-flex justify-content-end mb-4"><a class="btn btn-primary text-uppercase" href="#!">Older Posts →</a></div> -->
+                    
+                    <!-- End Pager-->
+
+                </div>
+            </div>
+        </div>
+{% endblock %}
+      

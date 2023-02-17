@@ -1,0 +1,85 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load comment_tags %} 
+{% load ratings %}
+{% load base_tags%}
+
+{% block title %}Post{% endblock %}
+
+
+{% block header%}
+<header class="masthead" style="background-image:url('{{object.thumbnail.url}}')">
+    <div class="container position-relative px-4 px-lg-5">
+        <div class="row gx-4 gx-lg-5 justify-content-center">
+            <div class="col-md-10 col-lg-8 col-xl-7">
+                <div class="post-heading">
+                    <h1>{{object.title}}
+                        {% if object.is_special %}
+                        <span class="badge badge-danger" style="color: rgb(253, 253, 253);
+                        font-size: 14px;">Special</span>
+                    {% endif %}
+                    </h1>
+                    <h2 class="subheading">Iranian singer</h2>
+                    <span class="meta">
+                        Posted by
+                        <a href="#!">Start Bootstrap</a>
+                        on August 24, 2022
+                    </span>
+                    <div>
+                        {% ratings object %} 
+                    </div>
+                    <div>Views: {{object.hits.count}}</div>
+    
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+{% endblock %}
+
+{% block content %}
+<!-- Post Content-->
+        <article class="mb-4">
+            <div class="container px-4 px-lg-5">
+                <div class="row gx-4 gx-lg-5 justify-content-center" >
+                    <div class="col-md-10 col-lg-8 col-xl-7 ">
+                        
+                        <h2 class="section-heading">{{object.title}}</h2>
+                        {% if object.is_special %}
+                            {% if user.is_authenticated and user.is_special_user or user == object.author or user.is_superuser %}
+                                <p>{{object.descriptions|safe}}</p>
+                            {% else %}
+                            {{object.descriptions|striptags|truncatewords:50}}
+                            <p class="alert alert-danger"> This Article Is Special Article <a class="alert-link" href="#">Special User</a> Buy Article</p>
+                           
+                            {% endif %}
+                        {% else %}
+                            <p>{{object.descriptions|safe}}</p>
+                        {% endif %}
+
+                        {% render_comments object request %}
+                        {% include_bootstrap %}
+                        <aside>
+                        {% popular_articles %}
+                        {% hot_articles %}
+                        </aside>
+
+                        
+                           
+                        
+                        <blockquote class="blockquote">{{object.publish}}</blockquote>
+                        <h2 class="section-heading">Picture</h2>
+                        <a href="{{object.thumbnail.url}}"><img class="img-fluid" src="{{object.thumbnail.url}}" alt="..." /></a>
+                        <span class="caption text-muted">To go places and do things that have never been done before – that’s what living is all about.</span>
+                        <p>
+                            &middot; {{object.title}}
+                            <a href="http://Wikipedia.com/">Wikipedia</a>
+                            <a href="https://www.ostadshajarian.com/">Weblog</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </article>
+     
+
+{% endblock %}

@@ -1,0 +1,142 @@
+{% load static %}
+{% load base_tags%}
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>{% block title %}{% endblock %}</title>
+        <link rel="icon" type="image/x-icon" href="{% static 'blog/assets/favicon.ico' %}" />
+        <!-- Font Awesome icons (free version)-->
+        <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
+        <!-- Google fonts-->
+        <link href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet" type="text/css" />
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css" />
+        <!-- Core theme CSS (includes Bootstrap)-->
+        <link href="{% static 'blog/css/styles.css' %}" rel="stylesheet" />
+        <!-- star-ratings static file -->
+        <link rel="stylesheet" href="{% static 'star-ratings/css/star-ratings.css' %}">
+        <script type="text/javascript" src="{% static 'star-ratings/js/dist/star-ratings.min.js' %}"></script>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+    </head>
+<body>
+    <!-- Navigation-->
+    <nav class="navbar navbar-expand-lg navbar-light" id="mainNav">
+        <div class="container px-4 px-lg-5">
+            <!-- <a class="navbar-brand" target="_blank" href="https://telegram.me/javad_feyzabadi">Me</a>
+            {% if user.is_authenticated%}
+                <small style="color: rgb(255, 255, 255);" class="font-weight-bold">Hi {{user.username}}</small>|
+                <a href="{% url 'accounts:homee' %}"><small style="color: rgb(255, 255, 255);" class="font-weight-bold">MY Account</small></a> |
+                <a href="{% url 'logout' %}"><small style="color: rgb(255, 255, 255);" class="font-weight-bold">Logout</small></a>
+            {% else %}
+                <a href="{% url 'login' %}"><small style="color: rgb(255, 255, 255);" class="font-weight-bold">Login</small></a> |
+                <a href="{% url 'register' %}"><small style="color: rgb(255, 255, 255);" class="font-weight-bold">Register</small></a>
+            {% endif %} -->
+
+            <!-- <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav ms-auto py-4 py-lg-0">
+                    <li class="nav-item"><a target="_blank" class="nav-link px-lg-3 py-3 py-lg-4" href="https://telegram.me/javad_feyzabadi">Me</a></li>
+                    {% if user.is_authenticated%}
+                    <li class="nav-item"><a target="_blank" class="nav-link px-lg-3 py-3 py-lg-4" >Hi {{user.username}}</a></li>
+                    <li class="nav-item"><a target="_blank" class="nav-link px-lg-3 py-3 py-lg-4" href="{% url 'accounts:homee' %}">MY Account</a></li>
+                    <li class="nav-item"><a target="_blank" class="nav-link px-lg-3 py-3 py-lg-4" href="{% url 'logout' %}">Logout</a></li>
+                    {% else %}
+                    <li class="nav-item"><a target="_blank" class="nav-link px-lg-3 py-3 py-lg-4" href="{% url 'login' %}"> Login</a></li>
+                    <li class="nav-item"><a target="_blank" class="nav-link px-lg-3 py-3 py-lg-4" href="{% url 'register' %}">Register</a></li>
+                    {% endif %}
+                </ul>
+            </div> -->
+
+
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                Menu
+                <i class="fas fa-bars"></i>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav ms-auto py-4 py-lg-0">
+                    {% if user.is_authenticated%}
+                    <li class="nav-item"><a target="_blank" class="nav-link px-lg-3 py-3 py-lg-4" >Hi {{user.username}}</a></li>
+                    <li class="nav-item"><a target="_blank" class="nav-link px-lg-3 py-3 py-lg-4" href="{% url 'logout' %}">Logout</a></li>
+                    <li class="nav-item"><a target="_blank" class="nav-link px-lg-3 py-3 py-lg-4" href="{% url 'accounts:homee' %}">MY Account</a></li>
+                    {% else %}
+                    <li class="nav-item"><a target="_blank" class="nav-link px-lg-3 py-3 py-lg-4" href="{% url 'login' %}"> Login</a></li>
+                    <li class="nav-item"><a target="_blank" class="nav-link px-lg-3 py-3 py-lg-4" href="{% url 'register' %}">Register</a></li>
+                    {% endif %}
+                    <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="{% url 'blog:home' %}">Home</a></li>
+                    <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="{% url 'about:about' %}">About</a></li>
+                    <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="{% url 'posts:posts' %}"> Post</a></li>
+                    <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="{% url 'contact:contact' %}">Contact</a></li>
+                </ul>
+            </div>
+            {%category_navbar%}
+        </div>
+    </nav>
+<!-- Page Header-->
+{% block header%}
+{% endblock %}
+
+<div style="padding-right: 25px;">
+<form class="form-inline my-2 my-lg-0" style="float: right;" action="{% url 'blog:search' %}">
+    <input name="q" class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+  </form>
+</div>
+{% block content %}
+{% endblock %}
+
+<!-- Footer-->
+<footer class="border-top">
+    <div class="container px-4 px-lg-5">
+        <div class="row gx-4 gx-lg-5 justify-content-center">
+            <div class="col-md-10 col-lg-8 col-xl-7">
+                <ul class="list-inline text-center">
+                    <li class="list-inline-item">
+                        <a target="_blank" href="https://twitter.com/javadfeyzabadii/">
+                            <span class="fa-stack fa-lg">
+                                <i class="fas fa-circle fa-stack-2x"></i>
+                                <i class="fab fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    <li class="list-inline-item">
+                        <a target="_blank" href="https://github.com/javad-feyzabadi">
+                            <span class="fa-stack fa-lg">
+                                <i class="fas fa-circle fa-stack-2x"></i>
+                                <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                </ul>
+                <div class="small text-center text-muted fst-italic">Copyright &copy; Your Website 2023</div>
+            </div>
+        </div>
+    </div>
+</footer>
+<!-- Bootstrap core JS-->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+<!-- Core theme JS-->
+<script src="{% static 'blog/js/scripts.js' %}"></script>
+</body>
+</html>
+
+
+
+
+
+<!-- <div style="padding-right: 25px;">
+<form class="form-inline mt-3" style="float: right;" action="{% url 'blog:search' %}">
+    <div class="wrap">
+        <div class="search">
+            <button type="submit" class="searchButton">
+                <i class="fa fa-search"></i>
+             </button>
+           <input name="q" type="text" class="searchTerm" placeholder="What are you looking for?">
+
+        </div>
+    </div>
+</form>
+</div> -->
